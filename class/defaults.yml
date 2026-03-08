@@ -2,4 +2,19 @@ parameters:
   cnpg_operator:
     =_metadata:
       multi_tenant: true
+
     namespace: syn-cnpg-operator
+    namespaceMetadata: {}
+
+    charts:
+      cloudnative-pg:
+        source: https://cloudnative-pg.github.io/charts
+        version: 0.27.1
+
+    images:
+      cloudnative-pg:
+        registry: ghcr.io
+        repository: cloudnative-pg/cloudnative-pg
+        tag: 1.28.1
+
+    helmValues: {}

@@ -1,10 +1,26 @@
 // main template for cnpg-operator
+local com = import 'lib/commodore.libjsonnet';
 local kap = import 'lib/kapitan.libjsonnet';
 local kube = import 'lib/kube.libjsonnet';
-local inv = kap.inventory();
+
 // The hiera parameters for the component
+local inv = kap.inventory();
 local params = inv.parameters.cnpg_operator;
+
+// Namespace
+local namespace = kube.Namespace(params.namespace) {
+  metadata+: {
+    annotations+: {
+      'argocd.argoproj.io/sync-wave': '-10',
+    } + com.makeMergeable(std.get(params.namespaceMetadata, 'annotations', {})),
+    labels+: {
+      'app.kubernetes.io/name': params.namespace,
+      'app.kubernetes.io/managed-by': 'commodore',
+    } + com.makeMergeable(std.get(params.namespaceMetadata, 'labels', {})),
+  },
+};
 
 // Define outputs below
 {
+  '00_namespace': namespace,
 }

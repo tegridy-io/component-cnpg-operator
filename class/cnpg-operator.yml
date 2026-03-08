@@ -1,5 +1,12 @@
 parameters:
   kapitan:
+    dependencies:
+      - type: helm
+        source: ${cnpg_operator:charts:cloudnative-pg:source}
+        chart_name: cloudnative-pg
+        version: ${cnpg_operator:charts:cloudnative-pg:version}
+        output_path: ${_base_directory}/helmcharts/cnpg/${cnpg_operator:charts:cloudnative-pg:version}/
+
     compile:
       - input_paths:
           - ${_base_directory}/component/app.jsonnet
@@ -9,3 +16,25 @@ parameters:
           - ${_base_directory}/component/main.jsonnet
         input_type: jsonnet
         output_path: cnpg-operator/
+      # Helm chart
+      - input_paths:
+          - ${_base_directory}/component/helm.jsonnet
+        input_type: jsonnet
+        output_path: ${_base_directory}/helmcharts/cnpg/${cnpg_operator:charts:cloudnative-pg:version}/
+      - input_paths:
+          - ${_base_directory}/helmcharts/cnpg/${cnpg_operator:charts:cloudnative-pg:version}/
+        input_type: helm
+        output_path: cnpg-operator/10_helmchart
+        helm_values_files:
+          - ${_base_directory}/helmcharts/cnpg/${cnpg_operator:charts:cloudnative-pg:version}/cnpg-values.yaml
+          - ${_base_directory}/helmcharts/cnpg/${cnpg_operator:charts:cloudnative-pg:version}/cnpg-overrides.yaml
+        helm_params:
+          name: cnpg
+          namespace: ${cnpg_operator:namespace}
+
+  commodore:
+    postprocess:
+      filters:
+        - type: jsonnet
+          filter: postprocess/remove-null-objs.jsonnet
+          path: cnpg-operator/10_helmchart/cloudnative-pg/templates/
