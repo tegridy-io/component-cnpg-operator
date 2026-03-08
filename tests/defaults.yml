@@ -1,3 +1,5 @@
 # Overwrite parameters here
 
-# parameters: {...}
+parameters:
+  cnpg_operator:
+    namespace: efk-operator-cnpg
