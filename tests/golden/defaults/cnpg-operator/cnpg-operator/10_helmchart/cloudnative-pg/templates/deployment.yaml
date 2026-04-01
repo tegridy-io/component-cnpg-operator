@@ -5,8 +5,8 @@ metadata:
     app.kubernetes.io/instance: cnpg
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/version: 1.28.1
-    helm.sh/chart: cloudnative-pg-0.27.1
+    app.kubernetes.io/version: 1.29.0
+    helm.sh/chart: cloudnative-pg-0.28.0
   name: cnpg-cloudnative-pg
   namespace: efk-operator-cnpg
 spec:
@@ -18,9 +18,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: eb8f0a0c04d24a0e43be993f40abbea3006ceb7d994e0507dbb07d78c15fd74a
-        checksum/monitoring-config: e2891cae5b4607a4567c9c39cc93ad9c6a8f867e6298a8fe5dc1f5f3676323a7
-        checksum/rbac: 7152a4284b2177d3260eb65e126afc1e18fbcc7e0f0cc2d90dc65c6004b3ccf5
+        checksum/config: 19fe2700827ab7d1c157b211902573deff2eb7ed83d44f8c2c1e16588eefde37
+        checksum/monitoring-config: ca8b8c5e77a7abf2aa6fa331c8d2168627e39576fff4d93dc005c1d5576119e9
+        checksum/rbac: 8b90add5d778ea0d8094a76733f8e35170f2664bbd02fc5f30030ed4f8c1a1cc
       labels:
         app.kubernetes.io/instance: cnpg
         app.kubernetes.io/name: cloudnative-pg
