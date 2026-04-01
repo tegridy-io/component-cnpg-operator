@@ -15,6 +15,6 @@ parameters:
       cloudnative-pg:
         registry: ghcr.io
         repository: cloudnative-pg/cloudnative-pg
-        tag: 1.28.1
+        tag: 1.28.2
 
     helmValues: {}
